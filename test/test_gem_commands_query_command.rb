@@ -112,6 +112,28 @@ pl (1)
     assert_equal '', @ui.error
   end
 
+  def test_execute_list_nonexistant_name
+    @cmd.handle_options %w[--name adfaf3415 ]
+
+    e = assert_raise Gem::SystemExitException do
+      use_ui @ui do
+        @cmd.execute
+      end
+    end
+
+    expected = <<-EOF
+
+*** LOCAL GEMS ***
+
+    EOF
+
+    assert_equal expected, @ui.output
+
+    assert_equal '', @ui.error
+
+    assert_equal 1, e.exit_code
+  end
+
   def test_execute_installed_no_name
     @cmd.handle_options %w[--installed]
 

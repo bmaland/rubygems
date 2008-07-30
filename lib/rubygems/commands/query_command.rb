@@ -128,6 +128,8 @@ class Gem::Commands::QueryCommand < Gem::Command
   end
 
   def output_query_results(spec_tuples)
+    raise Gem::SystemExitException, 1 if spec_tuples.empty?
+
     output = []
     versions = Hash.new { |h,name| h[name] = [] }
 
