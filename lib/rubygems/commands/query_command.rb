@@ -123,8 +123,7 @@ class Gem::Commands::QueryCommand < Gem::Command
   # Check if gem +name+ version +version+ is installed.
 
   def installed?(name, version = Gem::Requirement.default)
-    dep = Gem::Dependency.new name, version
-    !Gem.source_index.search(dep).empty?
+    !Gem.source_index.find_name(name, version).empty?
   end
 
   def output_query_results(spec_tuples)
